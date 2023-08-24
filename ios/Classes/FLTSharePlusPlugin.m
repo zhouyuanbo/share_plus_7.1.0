@@ -444,7 +444,9 @@ TopViewControllerForViewController(UIViewController *viewController) {
         withResult:(BOOL)withResult {
   NSObject *data = [[SharePlusData alloc] initWithSubject:subject
                                                      text:shareText];
-  [self share:@[ data ]
+  NSURL *url = [NSURL URLWithString:shareText];
+  
+  [self share:(url && url.scheme && url.host) ? @[ url ] : @[ data ]
          withSubject:subject
       withController:controller
             atSource:origin
